@@ -100,15 +100,19 @@ exports.updateTodo = async (req, res) => {
     const { id, action } = req.params;
 
     let payload = req.body;
-    console.log(req.body, action);
 
     if (action === "done") {
-      payload = { ...payload, status: true };
+      payload = { status: true };
     }
 
     if (action === "undone") {
-      payload = { ...payload, status: false };
+      payload = { status: false };
     }
+
+    if (action === "body") {
+      payload = { ...payload };
+    }
+    console.log(payload, action);
 
     const resultUpdated = await Todo.update(payload, { where: { id } });
 
